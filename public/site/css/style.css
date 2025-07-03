@@ -404,6 +404,7 @@
     background-position: center;
     background-size: cover;
     z-index: -9;
+    background-color: #eeeeee;
   }
 
   .section-title {

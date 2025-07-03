@@ -117,7 +117,7 @@
 
     <!-- Projects One Start -->
     <section class="projects-one">
-        <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+        <div class="section-shape-1">
         </div>
         <div class="projects-one__top">
             <div class="container">
@@ -217,7 +217,9 @@
     <!-- Services One Start -->
     @foreach ($categorySpecialPost as $category)
         <section class="services-one">
-            <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+            {{-- <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+            </div> --}}
+            <div class="section-shape-1">
             </div>
             <div class="container">
                 <div class="section-title text-center sec-title-animation animation-style1">
@@ -318,7 +320,7 @@
     <!-- Blog One Start -->
     @foreach ($categorySpecialOtherPost as $category)
         <section class="blog-one">
-            <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+            <div class="section-shape-1">
             </div>
             <div class="container">
                 <div class="section-title text-center sec-title-animation animation-style1">

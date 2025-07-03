@@ -112,6 +112,7 @@
         .product-detail {
             padding-top: 80px;
             padding-bottom: 80px;
+            background-color: #c1c1c180;
         }
 
         .product-detail-row {
@@ -175,7 +176,7 @@
         .blog-one__content {
             padding: 20px 25px 20px;
         }
-        
+
         .blog-one__img img {
             height: 434px;
             object-fit: cover;

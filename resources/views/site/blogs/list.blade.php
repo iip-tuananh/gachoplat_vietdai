@@ -71,7 +71,7 @@
     <!--Page Header End-->
     <!-- Blog One Start -->
     <section class="blog-one">
-        <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+        <div class="section-shape-1">
         </div>
         <div class="container">
             <div class="row">
