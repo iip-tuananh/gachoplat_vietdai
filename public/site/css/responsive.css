@@ -2068,6 +2068,7 @@
 
     .main-menu__bottom {
         padding: 0 15px 0;
+        width: 13%;
     }
 
     .main-menu__wrapper-inner {
@@ -2085,9 +2086,14 @@
     .main-menu__logo {
         position: relative;
         padding: 14px 0px;
+        max-width: 100%;
     }
 
-
+    @media (max-width: 768px) {
+        .main-menu__logo img {
+            width: 40%;
+        }
+    }
 
 
 

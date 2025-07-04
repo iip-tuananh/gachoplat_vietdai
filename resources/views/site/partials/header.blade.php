@@ -4,8 +4,7 @@
             {{-- <div class="container"> --}}
                 <div class="main-menu__wrapper-inner">
                     <div class="main-menu__logo hidden-md hidden-lg">
-                        <div class="section-shape-1"
-                            style="background-image: url('/site/images/section-shape-1.png');">
+                        <div class="section-shape-1">
                         </div>
                         <a href="{{route('front.home-page')}}"><img
                                 src="{{$config->image ? $config->image->path : 'https://placehold.co/100x100'}}" class="img-fluid logo-img"
