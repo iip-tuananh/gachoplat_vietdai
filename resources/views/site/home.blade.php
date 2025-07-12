@@ -52,7 +52,7 @@
                     <div class="main-slider__shape-4"></div>
                     <div class="container">
                         <div class="main-slider__content">
-                            <h2 class="main-slider__title">{{ $banner->title }}
+                            <h2 class="main-slider__title" data-text="{{ $banner->title }}">{{ $banner->title }}
                             </h2>
                             <div class="main-slider__video-link">
                                 <a href="{{ $banner->link }}" class="video-popup">

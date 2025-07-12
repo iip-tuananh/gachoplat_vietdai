@@ -18,7 +18,7 @@
 # Common
 --------------------------------------------------------------*/
 :root {
-    --tecture-font: "Figtree", sans-serif;
+    --tecture-font: "Open Sans", sans-serif;
     --tecture-font-1: "Montserrat", sans-serif;
     --tecture-font-2: "Barlow Semi Condensed", sans-serif;
     --tecture-gray: #b6b6b6;
@@ -43,7 +43,7 @@
 
   body {
     font-family: var(--tecture-font);
-    font-size: 17px;
+    font-size: 16px;
     line-height: 26px;
     font-weight: 400;
     color: var(--tecture-black);
@@ -117,14 +117,14 @@
   h4,
   h5,
   h6 {
-    font-family: var(--tecture-font-2);
+    font-family: var(--tecture-font-1);
     color: var(--tecture-black);
     margin: 0;
   }
 
   p {
     color: #212529;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 26px;
     margin: 0;
   }

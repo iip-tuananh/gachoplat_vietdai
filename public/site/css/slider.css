@@ -214,6 +214,7 @@
 .main-slider__title {
     position: relative;
     display: block;
+    font-family: var(--tecture-font);
     font-size: 70px;
     color: var(--tecture-white);
     font-weight: 700;
@@ -231,8 +232,34 @@
     transition: opacity 2000ms ease, -webkit-transform 2000ms ease;
     transition: transform 2000ms ease, opacity 2000ms ease;
     transition: transform 2000ms ease, opacity 2000ms ease, -webkit-transform 2000ms ease;
+    color: transparent;
+    -webkit-text-stroke: 0.03rem #ffffff;
+    position: relative;
 }
 
+.main-slider__title::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: #ffffff;
+    -webkit-animation: animate 4s ease-in-out infinite;
+    animation: animate 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes animate {
+    0%, 100% {
+        -webkit-clip-path: polygon(0% 45%, 16% 44%, 33% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+        clip-path: polygon(0% 45%, 16% 44%, 33% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+    }
+    50% {
+        -webkit-clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+        clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+    }
+}
 
 .main-slider__btn-box {
     position: relative;

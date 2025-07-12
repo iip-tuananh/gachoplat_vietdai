@@ -55,7 +55,7 @@
                                 </ul>
                                 <div class="main-menu__logo">
                                     <a href="{{ route('front.home-page') }}"><img
-                                            src="{{ $config->image ? $config->image->path : 'https://placehold.co/100x100' }}"
+                                            src="{{ $config->image_white ? $config->image_white->path : 'https://placehold.co/100x100' }}"
                                             class="img-fluid logo-img" alt=""></a>
                                 </div>
                                 <div class="main-menu__top-right">
@@ -76,8 +76,22 @@
                         </div>
                     </div>
                     <div class="main-menu__bottom container">
+                        <div class="main-menu__logo_sticky">
+                            <a href="{{route('front.home-page')}}"><img
+                                    src="{{$config->image ? $config->image->path : 'https://placehold.co/100x100'}}" class="img-fluid logo-img"
+                                    alt="" width="168"></a>
+                        </div>
+                        <style>
+                            .main-menu__logo_sticky {
+                                display: none;
+                            }
+                            .stricky-header.stricky-fixed .main-menu__logo_sticky {
+                                display: block;
+                            }
+                        </style>
                         <div class="main-menu__main-menu-box">
                             <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
+
                             <ul class="main-menu__list">
                                 <li class="{{Route::is('front.home-page') ? 'current' : ''}} ">
                                     <a href="{{ route('front.home-page') }}">Trang chủ </a>
@@ -92,7 +106,7 @@
                                         @if ($category->childs->count() > 0)
                                             <ul>
                                                 @foreach ($category->childs as $child)
-                                                    <li class="dropdown  current ">
+                                                    <li class="dropdown  {{Route::currentRouteName() == 'front.show-product-category' && $child->slug == request()->route()->parameter('categorySlug') ? 'current' : ''}} ">
                                                         <a
                                                             href="{{ route('front.show-product-category', $child->slug) }}">{{ $child->name }}</a>
                                                         @if ($child->childs->count() > 0)
@@ -113,13 +127,13 @@
                                 {{-- <li class="{{Route::is('front.gallery') ? 'current' : ''}} ">
                                     <a href="">Thư viện</a>
                                 </li> --}}
-                                @foreach ($postCategories as $category)
-                                    <li class="{{ $category->childs->count() > 0 ? 'dropdown' : ''}} {{Route::currentRouteName() == 'front.list-blog' && $category->slug == request()->route()->parameter('slug') ? 'current' : ''}} ">
+                                @foreach ($postCategories as $postCategory)
+                                    <li class="{{ $postCategory->childs->count() > 0 ? 'dropdown' : ''}} {{Route::currentRouteName() == 'front.list-blog' && $postCategory->slug == request()->route()->parameter('slug') ? 'current' : ''}} ">
                                         <a
-                                            href="{{ route('front.list-blog', $category->slug) }}">{{ $category->name }}</a>
-                                        @if ($category->childs->count() > 0)
+                                            href="{{ route('front.list-blog', $postCategory->slug) }}">{{ $postCategory->name }}</a>
+                                        @if ($postCategory->childs->count() > 0)
                                             <ul>
-                                                @foreach ($category->childs as $child)
+                                                @foreach ($postCategory->childs as $child)
                                                     <li><a
                                                             href="{{ route('front.list-blog', $child->slug) }}">{{ $child->name }}</a>
                                                     </li>

@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -44,6 +45,7 @@
     <!-- template styles -->
     <link rel="stylesheet" href="/site/css/style.css" />
     <link rel="stylesheet" href="/site/css/responsive.css" />
+    <link rel="stylesheet" href="/site/css/callbutton.css?v=123">
 
     @yield('css')
 
@@ -259,6 +261,49 @@
                     }
                 })
             });
+
+            $scope.loading = false;
+            $scope.errors = {};
+            $scope.submitContactModal = function() {
+                $scope.loading = true;
+                let data = {
+                    your_name: $scope.your_name,
+                    your_email: $scope.your_email,
+                    your_phone: $scope.your_phone,
+                    your_message: $scope.your_message
+                };
+                jQuery.ajax({
+                    url: '{{ route('front.post-contact') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: data,
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success('Thao tác thành công !')
+                            $scope.loading = false;
+                            $scope.errors = {};
+                            $scope.your_name = '';
+                            $scope.your_email = '';
+                            $scope.your_message = '';
+                            $scope.$applyAsync();
+                            $('#chat-popup').removeClass('popup-visible');
+                        } else {
+                            $scope.errors = response.errors;
+                            toastr.error('Thao tác thất bại !')
+                            $scope.loading = false;
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Thao tác thất bại !')
+                        $scope.loading = false;
+                    },
+                    complete: function() {
+                        $scope.$applyAsync();
+                    }
+                });
+            };
         })
 
         app.factory('cartItemSync', function($interval) {
@@ -304,10 +349,10 @@
     </script>
 </head>
 
-<body class="body-bg-color-1" ng-app="App" ng-controller="AppController">
-    <div class="preloader">
+<body class="body-bg-color-1" ng-app="App" ng-controller="AppController" ng-cloak>
+    {{-- <div class="preloader">
         <div class="preloader__image"></div>
-    </div>
+    </div> --}}
     <!-- /.preloader -->
     <div class="chat-icon"><button type="button" class="chat-toggler"><i class="fa fa-comment"></i></button></div>
     <!--Chat Popup-->
@@ -315,19 +360,34 @@
         <div class="popup-inner">
             <div class="close-chat"><i class="fa fa-times"></i></div>
             <div class="chat-form">
-                <p>Please fill out the form below and we will get back to you as soon as possible.</p>
-                <form action="assets/inc/sendemail.php" method="POST" class="contact-form-validated">
+                <p>Vui lòng điền thông tin bên dưới và chúng tôi sẽ liên hệ với bạn sớm nhất có thể.</p>
+                <form class="contact-form-validated">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="text" placeholder="Họ tên" ng-model="your_name" required>
+                        <span class="invalid-feedback d-block" role="alert">
+                            <span ng-if="errors && errors.your_name">
+                                <% errors.your_name[0] %>
+                            </span>
+                        </span>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="email" placeholder="Email" ng-model="your_email" required>
+                        <span class="invalid-feedback d-block" role="alert">
+                            <span ng-if="errors && errors.your_email">
+                                <% errors.your_email[0] %>
+                            </span>
+                        </span>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="Your Text"></textarea>
+                        <textarea placeholder="Nội dung" ng-model="your_message"></textarea>
+                        <span class="invalid-feedback d-block" role="alert">
+                            <span ng-if="errors && errors.your_message">
+                                <% errors.your_message[0] %>
+                            </span>
+                        </span>
                     </div>
                     <div class="form-group message-btn">
-                        <button type="submit" class="thm-btn">Submit <span class="icon-up-right-arrow"></span>
+                        <button type="submit" class="thm-btn" ng-click="submitContactModal()">Gửi <span class="icon-up-right-arrow"></span>
                         </button>
                     </div>
                     <div class="result"></div>
@@ -347,6 +407,47 @@
     </div>
     <!-- /.page-wrapper -->
     @include('site.partials.mobile_menu')
+    <div class="hidden-xs">
+        <div onclick="window.location.href= 'tel:{{ $config->hotline }}'" class="hotline-phone-ring-wrap">
+            <div class="hotline-phone-ring">
+                <div class="hotline-phone-ring-circle"></div>
+                <div class="hotline-phone-ring-circle-fill"></div>
+                <div class="hotline-phone-ring-img-circle">
+                    <a href="tel: {{ str_replace(' ', '', $config->hotline) }}" class="pps-btn-img">
+                        <img src="/site/images/phone.png" alt="Gọi điện thoại" width="50" loading="lazy">
+                    </a>
+                </div>
+            </div>
+            <a href="tel:{{ str_replace(' ', '', $config->hotline) }}">
+            </a>
+            <div class="hotline-bar"><a href="tel:{{ str_replace(' ', '', $config->hotline) }}">
+                </a><a href="tel:{{ str_replace(' ', '', $config->hotline) }}">
+                    <span class="text-hotline">{{ $config->hotline }}</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="inner-fabs">
+            <a target="blank" href="{{ $config->facebook }}" class="fabs roundCool" id="challenges-fab"
+                data-tooltip="Send Messenger">
+                <img class="inner-fab-icon" src="/site/images/messenger-icon.png" alt="challenges-icon"
+                    border="0" loading="lazy">
+            </a>
+            <a target="blank" href="https://zalo.me/{{ str_replace(' ', '', $config->zalo) }}"
+                class="fabs roundCool" id="chat-fab" data-tooltip="Send message Zalo">
+                <img class="inner-fab-icon" src="/site/images/zalo.png" alt="chat-active-icon" border="0"
+                    loading="lazy">
+            </a>
+            {{--            <a target="blank" href="{{ $config->google_map }}" class="fabs roundCool" id="chat-fab" --}}
+            {{--               data-tooltip="View map"> --}}
+            {{--                <img class="inner-fab-icon" src="/site/images/map.png" alt="chat-active-icon" border="0" loading="lazy"> --}}
+            {{--            </a> --}}
+
+        </div>
+        <div class="fabs roundCool call-animation" id="main-fab">
+            <img class="img-circle" src="/site/images/lienhe.png" alt="" width="135" loading="lazy">
+        </div>
+    </div>
     <!-- /.search-popup --> <a href="#" data-target="html" class="scroll-to-target scroll-to-top">
         <span class="scroll-to-top__wrapper"><span class="scroll-to-top__inner"></span></span>
         <span class="scroll-to-top__text"> Go Back Top</span>
@@ -378,6 +479,7 @@
     <script src="/site/js/ScrollTrigger.js"></script>
     <script src="/site/js/SplitText.js"></script>
     <script src="/site/js/script.js"></script>
+    <script src="/site/js/callbutton.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     @stack('script')

@@ -6,6 +6,7 @@
         before(form) {
             this.image = {};
             this.introduction_image = {};
+            this.image_white = {};
         }
         after(form) {
         }
@@ -17,6 +18,15 @@
         }
 		clearImage() {
 			if (this.image) this.image.clear();
+		}
+        get image_white() {
+            return this._image_white;
+        }
+        set image_white(value) {
+            this._image_white = new Image(value, this);
+        }
+		clearImageWhite() {
+			if (this.image_white) this.image_white.clear();
 		}
 
         get introduction_image() {
@@ -110,6 +120,8 @@
             if (favicon) data.append('favicon', favicon);
             let introduction_image = this.introduction_image.submit_data;
             if (introduction_image) data.append('introduction_image', introduction_image);
+            let image_white = this.image_white.submit_data;
+            if (image_white) data.append('image_white', image_white);
 
             this.galleries.forEach((g, i) => {
                 if (g.id) data.append(`galleries[${i}][id]`, g.id);

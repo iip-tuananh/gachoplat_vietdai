@@ -112,12 +112,12 @@
 }
 
 .feature-one__list li .text p {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 28px;
-    font-weight: 700;
+    font-weight: 600;
     font-style: normal;
     color: var(--tecture-black);
-    font-family: var(--tecture-font-2);
+    font-family: var(--tecture-font);
     text-transform: uppercase;
     letter-spacing: 0;
 }

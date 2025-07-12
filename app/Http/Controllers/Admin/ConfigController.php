@@ -57,6 +57,7 @@ class ConfigController extends Controller
 				'image' => 'nullable|file|mimes:jpg,jpeg,png|max:3000',
                 'favicon' => 'nullable|file|mimes:jpg,jpeg,png|max:3000',
                 'introduction_image' => 'nullable|file|mimes:jpg,jpeg,png|max:3000',
+                'image_white' => 'nullable|file|mimes:jpg,jpeg,png|max:3000',
                 'location' => 'nullable',
                 // 'zalo_chat' => 'required|array',
                 // 'zalo_chat.*.title' => 'required|string|max:255',
@@ -107,6 +108,14 @@ class ConfigController extends Controller
 				}
 				FileHelper::uploadFile($request->image, 'configs', $object->id, ThisModel::class, 'image',99);
 			}
+
+            if($request->image_white) {
+
+                if($object->image_white) {
+                    FileHelper::forceDeleteFiles($object->image_white->id, $object->id, ThisModel::class, 'image_white');
+                }
+                FileHelper::uploadFile($request->image_white, 'configs', $object->id, ThisModel::class, 'image_white',99);
+            }
 
             if($request->favicon) {
                 if($object->favicon) {

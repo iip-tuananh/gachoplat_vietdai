@@ -236,12 +236,12 @@
 {{--                        </a>--}}
 {{--                    </li>--}}
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('contacts.index') }}" class="nav-link {{ Request::routeIs('contacts.index') ? 'active' : '' }}">
                             <i class="far fas  fa-angle-right nav-icon"></i>
-                            <p>Danh mục khách hàng liên hệ</p>
+                            <p>Danh sách khách hàng liên hệ</p>
                         </a>
-                    </li> --}}
+                    </li>
 
 {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{ route('recruitments.index') }}" class="nav-link {{ Request::routeIs('recruitments.index') ? 'active' : '' }}">--}}

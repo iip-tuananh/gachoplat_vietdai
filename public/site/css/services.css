@@ -39,12 +39,12 @@
 }
 
 .services-one__title {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 30px;
     font-style: normal;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    /* letter-spacing: 0em; */
 }
 
 .services-one__title a {

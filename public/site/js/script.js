@@ -617,27 +617,27 @@
 
 
 
-  $(".contact-form-validated").each(function () {
-    $(this).validate({
-      rules: {
-        email: {
-          required: true,
-          email: true
-        }
-      },
-      submitHandler: function (form) {
-        $.post(
-          $(form).attr("action"),
-          $(form).serialize(),
-          function (response) {
-            $(form).find(".result").html(response);
-            $(form).find('input[type="text"], input[type="email"], textarea').val("");
-          }
-        );
-        return false;
-      }
-    });
-  });
+//   $(".contact-form-validated").each(function () {
+//     $(this).validate({
+//       rules: {
+//         email: {
+//           required: true,
+//           email: true
+//         }
+//       },
+//       submitHandler: function (form) {
+//         $.post(
+//           $(form).attr("action"),
+//           $(form).serialize(),
+//           function (response) {
+//             $(form).find(".result").html(response);
+//             $(form).find('input[type="text"], input[type="email"], textarea').val("");
+//           }
+//         );
+//         return false;
+//       }
+//     });
+//   });
 
 
 

@@ -365,7 +365,7 @@ class FrontController extends Controller
     {
         $rule  =  [
             'your_name' => 'required',
-            'your_phone'  => 'required|regex:/^(0)[0-9]{9,11}$/',
+            'your_phone'  => 'nullable|regex:/^(0)[0-9]{9,11}$/',
             'your_email'  => 'required|email|max:255'
         ];
 
@@ -374,7 +374,6 @@ class FrontController extends Controller
             $rule,
             [
                 'your_name.required' => 'Vui lòng nhập họ tên',
-                'your_phone.required' => 'Vui lòng nhập số điện thoại',
                 'your_phone.regex' => 'Số điện thoại không đúng định dạng',
                 'your_email.required' => 'Vui lòng nhập email',
             ]
@@ -387,9 +386,8 @@ class FrontController extends Controller
         $contact = new Contact();
         $contact->user_name = $request->your_name;
         $contact->email = $request->your_email;
-        $contact->phone_number = $request->your_phone;
+        $contact->phone_number = $request->your_phone ?? 0;
         $contact->content = $request->your_message;
-        $contact->location = $request->your_location ?? null;
         $contact->save();
 
         return $this->responseSuccess('Gửi yêu cầu thành công!');
