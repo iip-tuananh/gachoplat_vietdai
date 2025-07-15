@@ -247,11 +247,7 @@ class FrontController extends Controller
         $categories = Category::with('products')->orderBy('sort_order')->get();
         $category = Category::with(['childs'])->where('slug', $categorySlug)->first();
 
-        $attributes = Attribute::query()->with(['tags' => function($q) use ($category) {
-            $q->with(['products' => function($q) use ($category) {
-                $q->where('status', 1)->where('cate_id', $category->id);
-            }]);
-        }])->get();
+        $attributes = [];
         $sort = $request->get('sort') ?: 'lasted';
         $tag = $request->get('tag') ?: null;
         $request_product_ids = [];
@@ -268,6 +264,11 @@ class FrontController extends Controller
                     $arr_category_id = array_merge($arr_category_id, $child->childs->pluck('id')->toArray());
                 }
             }
+            $attributes = Attribute::query()->with(['tags' => function($q) use ($arr_category_id) {
+                $q->with(['products' => function($q) use ($arr_category_id) {
+                    $q->where('status', 1)->whereIn('cate_id', $arr_category_id);
+                }]);
+            }])->get();
 
             $products = Product::with([
                 'product_rates' => function($q) {
@@ -282,6 +283,7 @@ class FrontController extends Controller
             ->where('status', 1)->whereIn('cate_id', $arr_category_id)->orderBy('created_at', 'desc')->paginate(20);
         } else {
             $category = CategorySpecial::findBySlug($categorySlug);
+            $arr_product_ids = $category->products()->pluck('product_id')->toArray();
             $products = $category->products()->with([
                 'product_rates' => function($q) {
                     $q->where('status', 2);
@@ -289,10 +291,15 @@ class FrontController extends Controller
             ])
             ->where(function($q) use ($request_product_ids) {
                 if(!empty($request_product_ids)) {
-                    $q->whereIn('id', $request_product_ids);
+                    $q->whereIn('products.id', $request_product_ids);
                 }
             })
-            ->where('status', 1)->orderBy('created_at', 'desc')->paginate(20);
+            ->where('products.status', 1)->orderBy('products.created_at', 'desc')->paginate(20);
+            $attributes = Attribute::query()->with(['tags' => function($q) use ($arr_product_ids) {
+                $q->with(['products' => function($q) use ($arr_product_ids) {
+                    $q->where('products.status', 1)->whereIn('products.id', array_unique($arr_product_ids));
+                }]);
+            }])->get();
         }
 
         $title = $category->name;

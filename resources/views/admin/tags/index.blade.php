@@ -75,7 +75,7 @@
                                 <label class="form-label required-label">Loại</label>
                                 <select select2 class="select2-in-modal form-control" ng-model="editing.type">
                                     <option value="10" ng-selected="editing.type == 10">Sản phẩm </option>
-                                    <option value="20" ng-selected="editing.type == 20">Bài viết </option>
+                                    {{-- <option value="20" ng-selected="editing.type == 20">Bài viết </option> --}}
                                 </select>
                                 <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors.type">
                                         <strong><% errors.type[0] %></strong>
