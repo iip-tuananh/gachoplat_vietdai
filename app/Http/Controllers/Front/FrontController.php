@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Validator;
 use Response;
 use App\Http\Controllers\Controller;
+use App\Model\Admin\Attribute;
 use App\Model\Admin\Banner;
 use App\Model\Admin\Config;
 use App\Model\Admin\Contact;
@@ -27,6 +28,8 @@ use App\Model\Admin\PostCategory;
 use App\Model\Admin\ProductRate;
 use App\Model\Admin\Review;
 use App\Model\Admin\Service;
+use App\Model\Admin\Tag;
+use App\Model\Admin\Tagable;
 use App\Model\Admin\Voucher;
 use App\Model\Common\User;
 use DB;
@@ -241,9 +244,22 @@ class FrontController extends Controller
 
     public function showProductCategory(Request $request, $categorySlug = null)
     {
-        $categories = Category::parent()->with('products')->orderBy('sort_order')->get();
+        $categories = Category::with('products')->orderBy('sort_order')->get();
         $category = Category::with(['childs'])->where('slug', $categorySlug)->first();
+
+        $attributes = Attribute::query()->with(['tags' => function($q) use ($category) {
+            $q->with(['products' => function($q) use ($category) {
+                $q->where('status', 1)->where('cate_id', $category->id);
+            }]);
+        }])->get();
         $sort = $request->get('sort') ?: 'lasted';
+        $tag = $request->get('tag') ?: null;
+        $request_product_ids = [];
+        if($tag) {
+            $code_tags = $tag ? explode(',', $tag) : [];
+            $tag_ids = Tag::query()->whereIn('code', $code_tags)->pluck('id')->toArray();
+            $request_product_ids = Tagable::query()->whereIn('tag_id', $tag_ids)->where('tagable_type', Product::class)->pluck('tagable_id')->toArray();
+        }
         if($category) {
             $category_parent_id = $category->parent ? $category->parent->id : null;
             $arr_category_id = array_merge($category->childs->pluck('id')->toArray(), [$category->id, $category_parent_id]);
@@ -257,34 +273,46 @@ class FrontController extends Controller
                 'product_rates' => function($q) {
                     $q->where('status', 2);
                 }
-            ])->where('status', 1)->whereIn('cate_id', $arr_category_id)->orderBy('created_at', 'desc')->paginate(20);
+            ])
+            ->where(function($q) use ($request_product_ids) {
+                if(!empty($request_product_ids)) {
+                    $q->whereIn('id', array_unique($request_product_ids));
+                }
+            })
+            ->where('status', 1)->whereIn('cate_id', $arr_category_id)->orderBy('created_at', 'desc')->paginate(20);
         } else {
             $category = CategorySpecial::findBySlug($categorySlug);
             $products = $category->products()->with([
                 'product_rates' => function($q) {
                     $q->where('status', 2);
                 }
-            ])->where('status', 1)->orderBy('created_at', 'desc')->paginate(20);
+            ])
+            ->where(function($q) use ($request_product_ids) {
+                if(!empty($request_product_ids)) {
+                    $q->whereIn('id', $request_product_ids);
+                }
+            })
+            ->where('status', 1)->orderBy('created_at', 'desc')->paginate(20);
         }
 
         $title = $category->name;
         $short_des = $category->short_des;
         $title_sub = $category->name;
-        $smallBanners = Banner::with(['image'])->where('position', 2)->orderBy('id', 'desc')->limit(3)->get();
-        $partners = Partner::with(['image'])->get();
+        // $smallBanners = Banner::with(['image'])->where('position', 2)->orderBy('id', 'desc')->limit(3)->get();
+        // $partners = Partner::with(['image'])->get();
 
-        $categorySpecial = CategorySpecial::query()->with(['products' => function($q) {$q->where('status', 1)->limit(5);}])
-            ->has('products')
-            ->where('type',10)
-            ->where('show_home_page', 1)
-            ->orderBy('order_number')->get();
+        // $categorySpecial = CategorySpecial::query()->with(['products' => function($q) {$q->where('status', 1)->limit(5);}])
+        //     ->has('products')
+        //     ->where('type',10)
+        //     ->where('show_home_page', 1)
+        //     ->orderBy('order_number')->get();
 
         // $vouchers = Voucher::query()->where('status', 1)->where('quantity', '>', 0)->where('to_date', '>=', now())->orderBy('created_at', 'desc')->get();
         if(! $category) {
             return view('site.errors');
         }
 
-        return view('site.products.product_category', compact('categories', 'category', 'sort', 'categorySpecial', 'products', 'title', 'short_des', 'title_sub', 'smallBanners', 'partners'));
+        return view('site.products.product_category', compact('categories', 'category', 'sort', 'products', 'title', 'short_des', 'title_sub', 'attributes'));
     }
 
     public function loadMoreProduct(Request $request)

@@ -12,6 +12,7 @@ use \stdClass;
 use Rap2hpoutre\FastExcel\FastExcel;
 use PDF;
 use App\Http\Controllers\Controller;
+use App\Model\Admin\Attribute;
 use Illuminate\Support\Facades\DB;
 
 class TagController extends Controller
@@ -21,7 +22,8 @@ class TagController extends Controller
 
     public function index()
     {
-        return view($this->view . '.index');
+        $attributes = Attribute::all();
+        return view($this->view . '.index', compact('attributes'));
     }
 
     public function searchData(Request $request)
@@ -30,6 +32,9 @@ class TagController extends Controller
         return Datatables::of($objects)
             ->editColumn('updated_at', function ($object) {
                 return formatDate($object->updated_at);
+            })
+            ->editColumn('attribute', function ($object) {
+                return $object->attribute ? $object->attribute->name : '';
             })
             ->editColumn('type', function ($object) {
                 return Tag::TYPES[$object->type];
@@ -50,7 +55,8 @@ class TagController extends Controller
             $request->all(),
             [
                 'name' => 'required',
-                'type' => 'required|in:10,20',
+                'type' => 'required|in:10',
+                'attribute_id' => 'required|exists:attributes,id',
                 'code' => 'required|unique:tags,code',
             ]
         );
@@ -103,6 +109,7 @@ class TagController extends Controller
             [
                 'name' => 'required',
                 'type' => 'required|in:10,20',
+                'attribute_id' => 'required|exists:attributes,id',
                 'code' => 'required|unique:tags,code,'.$id.',id',
             ]
         );

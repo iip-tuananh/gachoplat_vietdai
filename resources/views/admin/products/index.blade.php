@@ -130,6 +130,7 @@
                 {data: 'price', title: "Đơn giá bán"},
                 {data: 'cate_id', title: 'Danh mục'},
                 {data: 'category_special', title: 'Danh mục đặc biệt'},
+                {data: 'tags', title: 'Thẻ tags phân loại', style: 'width: 15%'},
                 {
                     data: 'status',
                     title: "Trạng thái",

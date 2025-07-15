@@ -10,7 +10,7 @@ use Vanthao03596\HCVN\Models\Province;
 class Tag extends Model
 {
     protected $table = 'tags';
-    protected $fillable = ['id', 'code', 'name', 'type'];
+    protected $fillable = ['id', 'code', 'name', 'type', 'attribute_id'];
     protected $dates = ['created_at', 'updated_at'];
 
     const TYPE_PRODUCT = 10;
@@ -37,6 +37,11 @@ class Tag extends Model
     {
         return self::query()->where('id', $id)
             ->firstOrFail();
+    }
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class, 'attribute_id');
     }
 
     public function posts()

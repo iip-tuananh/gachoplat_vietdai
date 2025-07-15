@@ -27,10 +27,15 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .limit-3-line {
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .limit-2-line {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -233,7 +238,7 @@
                         <div class=" wow fadeInLeft" data-wow-delay="100ms">
                             <div class="services-one__single">
                                 <div class="services-one__content-box">
-                                    <h3 class="services-one__title"><a
+                                    <h3 class="services-one__title limit-2-line"><a
                                             href="{{ route('front.detail-blog', $post->slug) }}">{{ $post->name }}</a>
                                     </h3>
                                     <div class="services-one__img">

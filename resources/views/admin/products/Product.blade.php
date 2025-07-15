@@ -135,7 +135,7 @@
         // get tag_ids() {
         //     return this._tag_ids;
         // }
-        //
+
         // set tag_ids(value) {
         //     this._tag_ids = (value || []).map(val => val.id);
         // }

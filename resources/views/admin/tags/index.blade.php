@@ -61,6 +61,17 @@
                             </div>
 
                             <div class="form-group custom-group">
+                                <label class="form-label required-label">Thuộc tính sản phẩm</label>
+                                <select select2 class="select2-in-modal form-control" ng-model="editing.attribute_id">
+                                    <option value="">Chọn thuộc tính</option>
+                                    <option ng-repeat="attribute in attributes track by $index" value="<% attribute.id %>" ng-selected="editing.attribute_id == attribute.id"><% attribute.name %></option>
+                                </select>
+                                <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors.attribute_id">
+                                        <strong><% errors.attribute_id[0] %></strong>
+                                </span>
+                            </div>
+
+                            <div class="form-group custom-group">
                                 <label class="form-label required-label">Loại</label>
                                 <select select2 class="select2-in-modal form-control" ng-model="editing.type">
                                     <option value="10" ng-selected="editing.type == 10">Sản phẩm </option>
@@ -116,10 +127,24 @@
                             </div>
 
                             <div class="form-group custom-group">
+                                <label class="form-label required-label">Thuộc tính sản phẩm</label>
+                                <select class="select2-in-modal form-control" name="attribute_id">
+                                    <option value="">Chọn thuộc tính</option>
+                                    @foreach ($attributes as $attribute)
+                                        <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                    @endforeach
+                                    {{-- <option value="20">Bài viết </option> --}}
+                                </select>
+                                <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors.attribute_id">
+                                        <strong><% errors.attribute_id[0] %></strong>
+                                </span>
+                            </div>
+
+                            <div class="form-group custom-group">
                                 <label class="form-label required-label">Loại</label>
                                 <select class="select2-in-modal form-control" name="type">
                                     <option value="10">Sản phẩm </option>
-                                    <option value="20">Bài viết </option>
+                                    {{-- <option value="20">Bài viết </option> --}}
                                 </select>
                                 <span class="invalid-feedback d-block" role="alert" ng-if="errors && errors.type">
                                         <strong><% errors.type[0] %></strong>
@@ -163,8 +188,9 @@
             columns: [
                 {data: 'DT_RowIndex', orderable: false, title: "STT"},
                 {data: 'code', title: "Mã"},
-                {data: 'name', title: "Tên"},
-                {data: 'type', title: "Loại"},
+                {data: 'name', title: "Tên thẻ"},
+                {data: 'attribute', title: "Thuộc tính sản phẩm"},
+                {data: 'type', title: "Loại thẻ"},
                 {data: 'action', orderable: false, title: "Hành động"}
             ],
             search_columns: [
@@ -174,7 +200,7 @@
         }).datatable;
 
         app.controller('tags', function ($scope, $http) {
-
+            $scope.attributes = @json($attributes);
             $('#table-list').on('click', '.edit', function () {
                 $scope.tag = table.row($(this).parents('tr')).data();
                 $.ajax({
@@ -183,7 +209,6 @@
                     success: function(response) {
                         if (response.success) {
                             $scope.editing = response.data;
-                            console.log($scope.editing);
                         }
                     },
                     error: function(err) {
@@ -202,6 +227,7 @@
                 e.preventDefault();
                 var url = "/admin/tags/" + $scope.editing.id + "/update";
                 var data = $scope.editing;
+                console.log(data);
                 $scope.loading = true;
                 $scope.$apply();
                 $.ajax({

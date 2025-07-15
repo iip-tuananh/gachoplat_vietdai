@@ -279,7 +279,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="form-group custom-group mb-4">
+        <div class="form-group custom-group mb-4">
             <label class="form-label">Chọn tags</label>
             <ui-select remove-selected="false" multiple ng-model="form.tag_ids">
                 <ui-select-match placeholder="Chọn tag">
@@ -290,7 +290,7 @@
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
             </ui-select>
-        </div> --}}
+        </div>
         <div class="form-group custom-group mb-4">
             <label class="form-label required-label">Trạng thái</label>
             <select id="my-select" class="form-control custom-select" ng-model="form.status">

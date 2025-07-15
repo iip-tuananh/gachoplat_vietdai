@@ -42,6 +42,13 @@
                 height: 250px;
             }
         }
+
+        .limit-3-line {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 @endsection
 
@@ -93,7 +100,7 @@
                                         <p>{{ $post->created_at->format('M Y') }}</p>
                                     </div>
                                     <div class="blog-one__title-box">
-                                        <h3 class="blog-one__title"><a
+                                        <h3 class="blog-one__title limit-3-line"><a
                                                 href="{{ route('front.detail-blog', $post->slug) }}">{{ $post->name }}</a>
                                         </h3>
                                     </div>

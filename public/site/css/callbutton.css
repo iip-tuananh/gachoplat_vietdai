@@ -55,7 +55,7 @@
 }
 
 .hotline-phone-ring-img-circle {
-    background-color: #4e3289;
+    background-color: #a6a182;
     width: 33px;
     height: 33px;
     top: 37px;
@@ -91,7 +91,7 @@
 
 .hotline-bar {
     position: absolute;
-    background: rgb(45 66 131);
+    background: rgb(166 161 130);
     height: 40px;
     width: 160px;
     line-height: 40px;
@@ -304,7 +304,7 @@
     color: #333;
     right: 53px;
     top: 18%;
-    background-color: #ffd057;
+    background-color: #a6a182;
     font-size: .6em;
     line-height: 1.2em;
     display: inline-block;

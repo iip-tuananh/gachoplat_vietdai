@@ -55,6 +55,11 @@ class ProductController extends Controller
 			->editColumn('price', function ($object) {
 				return formatCurrent($object->price);
 			})
+			->editColumn('tags', function ($object) {
+				return $object->tags->map(function ($tag) {
+					return '<span class="badge badge-light" style="font-size: 12px;">'.$tag->name.'</span>';
+				})->implode(' ');
+			})
 			->editColumn('created_at', function ($object) {
 				return Carbon::parse($object->created_at)->format("d/m/Y");
 			})
@@ -90,7 +95,7 @@ class ProductController extends Controller
                 return $result;
 			})
 			->addIndexColumn()
-			->rawColumns(['action'])
+			->rawColumns(['action', 'tags'])
 			->make(true);
     }
 
