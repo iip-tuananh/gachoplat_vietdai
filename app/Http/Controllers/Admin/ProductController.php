@@ -256,7 +256,11 @@ class ProductController extends Controller
             }
             if (isset($object->galleries)) {
                 foreach ($object->galleries as $gallery) {
-                    FileHelper::forceDeleteFiles($gallery->id, $object->id, ProductGallery::class);
+                    if ($gallery->image) {
+                        FileHelper::forceDeleteFiles($gallery->image->id, $gallery->id, ProductGallery::class);
+                        $gallery->image->removeFromDB();
+                    }
+                    $gallery->removeFromDB();
                 }
             }
 			$object->delete();
