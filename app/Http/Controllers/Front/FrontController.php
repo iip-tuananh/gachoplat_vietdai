@@ -244,7 +244,7 @@ class FrontController extends Controller
 
     public function showProductCategory(Request $request, $categorySlug = null)
     {
-        $categories = Category::with('products')->orderBy('sort_order')->get();
+        // $categories = Category::with('products')->orderBy('sort_order')->get();
         $category = Category::with(['childs'])->where('slug', $categorySlug)->first();
 
         $attributes = [];
@@ -319,7 +319,7 @@ class FrontController extends Controller
             return view('site.errors');
         }
 
-        return view('site.products.product_category', compact('categories', 'category', 'sort', 'products', 'title', 'short_des', 'title_sub', 'attributes'));
+        return view('site.products.product_category', compact('category', 'sort', 'products', 'title', 'short_des', 'title_sub', 'attributes'));
     }
 
     public function loadMoreProduct(Request $request)

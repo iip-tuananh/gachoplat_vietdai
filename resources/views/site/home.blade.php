@@ -153,7 +153,7 @@
                                 <div class="projects-one__img-box">
                                     <div class="projects-one__img">
                                         <img src="{{ $category->image ? $category->image->path : 'https://placehold.co/483x584' }}"
-                                            alt="">
+                                            alt="" loading="lazy">
                                     </div>
                                     <div class="projects-one__content">
                                         <div class="projects-one__content-shape-1"
@@ -193,7 +193,7 @@
                             <li>
                                 <div class="about-one__img">
                                     <img src="{{ $config->introduction_image ? $config->introduction_image->path : 'https://placehold.co/620x620' }}"
-                                        alt="">
+                                        alt="" loading="lazy">
                                 </div>
                             </li>
                         </ul>
@@ -243,7 +243,7 @@
                                     </h3>
                                     <div class="services-one__img">
                                         <img src="{{ $post->image ? $post->image->path : 'https://placehold.co/370x250' }}"
-                                            alt="">
+                                            alt="" loading="lazy">
                                     </div>
                                     <div class="services-one__text limit-3-line">{{ $post->intro }}
                                     </div>
@@ -309,7 +309,7 @@
                                 <div class="video-one__img-holder-box">
                                     <div class="video-one__img-holder">
                                         <img src="{{ $gallery->image ? $gallery->image->path : 'https://placehold.co/1920x1080' }}"
-                                            alt="">
+                                            alt="" loading="lazy">
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                             <div class="blog-one__single">
                                 <div class="blog-one__img">
                                     <img src="{{ $post->image ? $post->image->path : 'https://placehold.co/483x584' }}"
-                                        alt="">
+                                        alt="" loading="lazy">
                                 </div>
                                 <div class="blog-one__content">
                                     <div class="blog-one__content-shape-1"
@@ -382,7 +382,7 @@
                         <div class="brand-one__img">
                             <a href="{{ $partner->link }}"><img
                                     src="{{ $partner->image ? $partner->image->path : 'https://placehold.co/1920x1080' }}"
-                                    alt=""></a>
+                                    alt="" loading="lazy"></a>
                         </div>
                     </div>
                 @endforeach

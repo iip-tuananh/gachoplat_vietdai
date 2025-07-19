@@ -205,7 +205,7 @@
             @else --}}
             <div class="row">
                 <div class="col-md-3 col-lg-3 col-sm-12 product-category-child-sidebar">
-                    <aside class="widget_product_categories">
+                    {{-- <aside class="widget_product_categories">
                         <span class="widget-title shop-sidebar">Danh mục sản phẩm</span>
                         <div class="is-divider small"></div>
                         <ul class="product-categories">
@@ -217,10 +217,10 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </aside>
+                    </aside> --}}
                     @foreach ($attributes as $attribute)
                         @if ($attribute->tags->count() > 0)
-                            <aside class="widget_product_categories mt-5">
+                            <aside class="widget_product_categories mb-5">
                                 <span class="widget-title shop-sidebar">{{ $attribute->name }}</span>
                                 <div class="is-divider small"></div>
                                 <ul class="product-categories">

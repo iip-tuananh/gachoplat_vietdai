@@ -95,6 +95,7 @@
             .mySwiper .swiper-slide img {
                 height: 80px;
             }
+
             .mySwiper2 .swiper-slide img {
                 height: 400px !important;
             }
@@ -104,6 +105,7 @@
             .mySwiper .swiper-slide img {
                 height: 100px;
             }
+
             .mySwiper2 .swiper-slide img {
                 height: 300px !important;
             }
@@ -181,21 +183,25 @@
             height: 434px;
             object-fit: cover;
         }
+
         @media (max-width: 1400px) {
             .blog-one__img img {
                 height: 350px;
             }
         }
+
         @media (max-width: 1200px) {
             .blog-one__img img {
                 height: 300px;
             }
         }
+
         @media (max-width: 992px) {
             .blog-one__img img {
                 height: 250px;
             }
         }
+
         @media (max-width: 768px) {
             .blog-one__img img {
                 height: 300px;
@@ -241,12 +247,14 @@
                             class="swiper mySwiper2">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <img src="{{ $product->image ? $product->image->path : 'https://placehold.co/370x250' }}" />
+                                    <img
+                                        src="{{ $product->image ? $product->image->path : 'https://placehold.co/370x250' }}" />
                                 </div>
                                 @foreach ($product->galleries as $gallery)
-                                <div class="swiper-slide">
-                                    <img src="{{ $gallery->image ? $gallery->image->path : 'https://placehold.co/370x250' }}" />
-                                </div>
+                                    <div class="swiper-slide">
+                                        <img
+                                            src="{{ $gallery->image ? $gallery->image->path : 'https://placehold.co/370x250' }}" />
+                                    </div>
                                 @endforeach
                             </div>
                             <div class="swiper-button-next"></div>
@@ -255,11 +263,13 @@
                         <div thumbsSlider="" class="swiper mySwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <img src="{{ $product->image ? $product->image->path : 'https://placehold.co/370x250' }}" />
+                                    <img
+                                        src="{{ $product->image ? $product->image->path : 'https://placehold.co/370x250' }}" />
                                 </div>
                                 @foreach ($product->galleries as $gallery)
                                     <div class="swiper-slide">
-                                        <img src="{{ $gallery->image ? $gallery->image->path : 'https://placehold.co/370x250' }}" />
+                                        <img
+                                            src="{{ $gallery->image ? $gallery->image->path : 'https://placehold.co/370x250' }}" />
                                     </div>
                                 @endforeach
                             </div>
@@ -275,8 +285,11 @@
                         @if ($product->price > 0 && $product->base_price > 0)
                             <div class="product-detail__price mb-2">
                                 <span class="product-detail__price-new">{{ formatCurrency($product->price) }}₫</span>
-                                <span class="product-detail__price-old"><del>{{ formatCurrency($product->base_price) }}₫</del></span>
-                                <span class="product-detail__price-discount">( <i class="fas fa-tag" style="color: #ff0000;"></i> Giảm {{ round(($product->base_price - $product->price) / $product->base_price * 100) }}%)</span>
+                                <span
+                                    class="product-detail__price-old"><del>{{ formatCurrency($product->base_price) }}₫</del></span>
+                                <span class="product-detail__price-discount">( <i class="fas fa-tag"
+                                        style="color: #ff0000;"></i> Giảm
+                                    {{ round((($product->base_price - $product->price) / $product->base_price) * 100) }}%)</span>
                             </div>
                         @elseif ($product->price > 0 && $product->base_price == 0)
                             <div class="product-detail__price mb-2">
@@ -327,7 +340,8 @@
                                             <h3 class="blog-one__title"><a
                                                     href="{{ route('front.show-product-detail', $item->slug) }}">{{ $item->name }}</a>
                                             </h3>
-                                            <p>{{ $item->sku }} <span class="text-muted">|</span> {{$item->brand_name}} </p>
+                                            <p>{{ $item->sku }} <span class="text-muted">|</span>
+                                                {{ $item->brand_name }} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -344,23 +358,25 @@
 
 @push('script')
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            // loop: true,
-            spaceBetween: 10,
-            slidesPerView: 4,
-            freeMode: true,
-            watchSlidesProgress: true,
-        });
-        var swiper2 = new Swiper(".mySwiper2", {
-            loop: true,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            thumbs: {
-                swiper: swiper,
-            },
+        $(document).ready(function() {
+            var swiper = new Swiper(".mySwiper", {
+                // loop: true,
+                spaceBetween: 10,
+                slidesPerView: 4,
+                freeMode: true,
+                watchSlidesProgress: true,
+            });
+            var swiper2 = new Swiper(".mySwiper2", {
+                loop: true,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: swiper,
+                },
+            });
         });
     </script>
     <script>

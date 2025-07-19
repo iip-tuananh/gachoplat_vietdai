@@ -212,7 +212,7 @@
 .contact-page {
     position: relative;
     display: block;
-    padding: 120px 0 120px;
+    padding: 80px 0 80px;
     z-index: 1;
 }
 
@@ -228,7 +228,7 @@
     position: relative;
     display: block;
     background-color: #ffffff;
-    padding: 107px 0 75px;
+    /* padding: 0px 0 75px; */
     border-radius: 10px;
 }
 
@@ -242,8 +242,8 @@
 .contact-page__information {
     position: relative;
     display: block;
-    background-color: #c1c1c1c1;
-    padding: 58px 40px 70px;
+    /* background-color: #c1c1c1c1; */
+    padding: 0px 40px 70px;
     border-radius: 10px;
 }
 
@@ -253,7 +253,7 @@
     line-height: 46px;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(var(--tecture-white-rgb), .10);
-    margin-bottom: 40px;
+    margin-bottom: 0px;
     padding-bottom: 18px;
 }
 
@@ -268,7 +268,7 @@
     align-items: center;
     gap: 20px;
     background-color: #ffffff;
-    padding: 21px 0 20px 20px;
+    /* padding: 0px 0 0px 20px; */
 }
 
 .contact-page__information-list li+li {
@@ -280,16 +280,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 55px;
+    max-width: 40px;
     width: 100%;
     height: 60px;
-    background-color: var(--tecture-base);
+    /* background-color: var(--tecture-base); */
 }
 
 .contact-page__information-list li .icon span {
     position: relative;
     display: inline-block;
-    font-size: 26px;
+    font-size: 20px;
     color: var(--tecture-black);
 }
 
@@ -299,14 +299,15 @@
 }
 
 .contact-page__information-list li .content h3 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 34px;
+    line-height: 15px;
 }
 
 .contact-page__information-list li .content p {
     font-size: 15px;
     color: var(--tecture-black);
+    line-height: 22px;
 }
 
 .contact-page__information-list li .content p a {
@@ -322,7 +323,9 @@
 .contact-page__right {
     margin-left: 20px;
     margin-right: 35px;
-    margin-top: -14px;
+    /* margin-top: -14px; */
+    background-color: #c1c1c13b;
+    padding: 30px 20px;
 }
 
 .contact-page__contact-title {
@@ -360,9 +363,9 @@
 .contact-page__input-box input[type="text"],
 .contact-page__input-box input[type="email"],
 .contact-page__input-box input[type="number"] {
-    height: 58px;
+    height: 46px;
     width: 100%;
-    background-color: #c1c1c1c1;
+    background-color: #ffffff;
     border: none;
     padding-left: 25px;
     padding-right: 25px;
@@ -376,9 +379,9 @@
 
 .contact-page__input-box textarea {
     position: relative;
-    height: 185px;
+    height: 160px;
     width: 100%;
-    background-color: #c1c1c1c1;
+    background-color: #ffffff;
     border: none;
     padding-top: 20px;
     padding-left: 25px;
@@ -393,8 +396,8 @@
 }
 
 .contact-page__input-box.text-message-box {
-    height: 185px;
-    margin-bottom: 50px;
+    height: 160px;
+    margin-bottom: 36px;
 }
 
 .contact-page__btn-box {

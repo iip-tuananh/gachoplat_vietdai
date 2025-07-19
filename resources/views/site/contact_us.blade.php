@@ -41,8 +41,8 @@
     <!--Page Header End-->
     <!--Contact Page Start-->
     <section class="contact-page" ng-controller="ContactUsController">
-        <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
-        </div>
+        {{-- <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+        </div> --}}
         <div class="container">
             <div class="contact-page__inner">
                 <div class="row">
@@ -52,18 +52,18 @@
                                 <h3 class="contact-page__information-title">Thông tin liên hệ</h3>
                                 <ul class="contact-page__information-list list-unstyled">
                                     <li>
-                                        <div class="icon">
+                                        {{-- <div class="icon">
                                             <span class="icon-pin"></span>
-                                        </div>
+                                        </div> --}}
                                         <div class="content">
                                             <h3>Địa chỉ</h3>
                                             <p>{{ $config->address_company }}</p>
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="icon">
+                                        {{-- <div class="icon">
                                             <span class="icon-trading"></span>
-                                        </div>
+                                        </div> --}}
                                         <div class="content">
                                             <h3>Số điện thoại</h3>
                                             <p><a
@@ -72,9 +72,9 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="icon">
+                                        {{-- <div class="icon">
                                             <span class="icon-envelope-1"></span>
-                                        </div>
+                                        </div> --}}
                                         <div class="content">
                                             <h3>Email</h3>
                                             <p><a href="mailto:{{ $config->email }}">{{ $config->email }}</a>
@@ -87,10 +87,10 @@
                     </div>
                     <div class="col-xl-7 col-lg-7">
                         <div class="contact-page__right">
-                            <h3 class="contact-page__contact-title">Gửi liên hệ</h3>
+                            {{-- <h3 class="contact-page__contact-title">Gửi liên hệ</h3> --}}
                             <form id="contact-form" class="contact-page__form contact-form-validated">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="contact-page__input-box">
                                             <input type="text" name="name" placeholder="Họ tên" required
                                                 ng-model="your_name">
@@ -156,8 +156,8 @@
     <!--Contact Page End-->
     <!--Google Map Start-->
     <section class="google-map-one">
-        <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
-        </div>
+        {{-- <div class="section-shape-1" style="background-image: url(/site/images/section-shape-1.png);">
+        </div> --}}
         {!! $config->location !!}
     </section>
     <!--Google Map End-->
